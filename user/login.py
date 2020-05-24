@@ -6,11 +6,11 @@ import hashlib
 
 
 def user_login(request):
-    if request.form['username'] and request.form['password']:
-        user = User.query.filter(User.username == request.form['username'], User.password_hash == hashlib.sha256(
-            request.form['password'].encode("utf8")).hexdigest()).first()
+    if request.form.get('username') and request.form.get('password'):
+        user = User.query.filter(User.username == request.form.get('username'),
+                                 User.password_hash == request.form.get('password')).first()
         if user:
             login_user(user)
-            session['user'] = request.form['username']
-            return jsonify({'status': 'ok', 'info': '%s登录成功' % request.form['username']})
-    return jsonify({'status': 'fail', 'info': '%s登录失败' % request.form['username']}), 400
+            session['username'] = request.form.get('username')
+            return jsonify({'status': 'ok', 'info': '%s login success.' % request.form.get('username')})
+    return jsonify({'status': 'fail', 'info': '%s login fail.' % request.form.get('username')}), 400

@@ -16,9 +16,8 @@ def send_mail(request):
         return jsonify({'status': 'fail', 'info': 'send mail fail, because no title.'}), 400
     else:
         title = request.form.get('title')
-    if not session.get('user') and request.form.get('token') != config.Config.TOKEN:
+    if 'username' not in session and request.form.get('token') != config.Config.TOKEN:
         return jsonify({'status': 'fail', 'info': 'no certified operate.'}), 400
-
     try:
         context = request.form.get('context') if request.form.get('context') else ''
         context = context.encode().decode('utf-8')
