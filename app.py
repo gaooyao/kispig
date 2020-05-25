@@ -8,7 +8,7 @@ from models import User, db
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.filter(User.id == user_id).first()
 
 
 app.run(host=app.config['HOST'], port=app.config['PORT'], debug=False)

@@ -3,7 +3,7 @@ from flask import render_template, request
 from flask_login import login_required
 from config import app
 from tools.route import route as tools_route
-from user.login import user_login
+from user.login import user_login, user_logout
 
 
 @app.route('/')
@@ -20,6 +20,11 @@ def test():
 @app.route('/login', methods=['POST'])
 def login():
     return user_login(request)
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    return user_logout(request)
 
 
 @app.route('/tools/<string:fun>', methods=['POST'])
