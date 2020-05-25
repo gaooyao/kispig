@@ -20,7 +20,7 @@ def send_msg(request):
         return jsonify({'status': 'fail', 'info': 'send msg fail, please check text.'}), 400
     else:
         text = request.form.get('text')
-    if not session.get('user') and request.form.get('token') != config.Config.TOKEN:
+    if 'username' not in session and request.form.get('token') != config.Config.TOKEN:
         return jsonify({'status': 'fail', 'info': 'no certified operate.'}), 400
 
     try:
